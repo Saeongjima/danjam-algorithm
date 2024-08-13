@@ -17,7 +17,7 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: make directory with today's date & move solved code
-        run: mkdir "$(date '+%Y년 %m월 %d일')" && mv *.java "$(date '+%Y년 %m월 %d일')" ||  mv *.py "$(date '+%Y년 %m월 %d일')"
+        run: TODAY_DIR="$(date '+%Y년 %m월 %d일')" mkdir "$TODAY_DIR" find . -maxdepth 1 \( -name '*.java' -o -name '*.py' -o -type d ! -name "$(basename $GITHUB_WORKSPACE)" ! -name "$TODAY_DIR" \) -exec mv {} "$TODAY_DIR" \;
 
       - name: show current directory (to check mkdir's success)
         run: ls
