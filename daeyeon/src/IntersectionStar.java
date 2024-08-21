@@ -31,7 +31,7 @@ public class IntersectionStar {
             for(int j=i+1; j<line.length;j++){
                 long[] line1 = line[i];
                 long[] line2 = line[j];
-                Point meetPoint = getMeetPoint(line1,line2);
+                Point meetPoint = getIntegerMeetPoint(line1,line2);
                 if(meetPoint ==null) //교점이 정수가 아닌결우
                     continue;
                 meetPoints.add(meetPoint);
@@ -79,7 +79,7 @@ public class IntersectionStar {
     }
 
     //두 직선의 교점을 구하는 메서드
-    private static Point getMeetPoint(long[] line1, long[] line2) {
+    private static Point getIntegerMeetPoint(long[] line1, long[] line2) {
 
         long a = line1[0];
         long b = line1[1];
@@ -89,15 +89,16 @@ public class IntersectionStar {
         long d = line2[1];
         long f = line2[2];
 
-        try{
-            double x = (double)(b*f-e*d)/(a*d-b*c);
-            double y = (double)(e*c-a*f)/(a*d-b*c);
-            //교차점이 정수일 경우
-            if(x==(long)x && y ==(long)y){
-                return new Point((long)x,(long)y);
-            }
-        } catch(ArithmeticException k){
+        long denominator = a*d - b*c;
+        if(denominator == 0)
             return null;
+
+        double x = (double)(b*f-e*d)/(a*d-b*c);
+        double y = (double)(e*c-a*f)/(a*d-b*c);
+
+        //교차점이 정수일 경우
+        if(x==(long)x && y ==(long)y){
+            return new Point((long)x,(long)y);
         }
         return null;
     }
