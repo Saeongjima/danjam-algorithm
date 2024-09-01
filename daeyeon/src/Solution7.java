@@ -26,15 +26,13 @@ class Solution7 {
     public String modifiedUpperLower(String s) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
             if (i % 2 == 0) {
-                char c = s.charAt(i);
                 c = Character.toUpperCase(c);
-                sb.append(c);
             } else {
-                char c = s.charAt(i);
                 c = Character.toLowerCase(c);
-                sb.append(c);
             }
+            sb.append(c);
         }
         return sb.toString();
     }
